@@ -16,7 +16,18 @@ class Queen extends Piece {
 	//methods
 	public boolean checkMoveValidity(int startCol, int startRow, int endCol, int endRow){
 		//check move validity for this piece, how does this piece move?
-		return true;
+		//queen is combo of rook and bishop
+		
+		if ((Math.abs(endCol - startCol) != Math.abs(endRow - startRow)) && (endRow != startRow && endCol != startCol)){
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	public int[][] drawPath(int startCol, int startRow, int endCol, int endRow, Board board){
+		int [][] pathArray = new int[board.getBoardNumCols()][board.getBoardNumRows()];
+		return pathArray;
 	}
 	
 	public String getVisual(){

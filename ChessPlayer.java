@@ -3,8 +3,10 @@
 
 
 //import ser120.ChessProject2.Board;
+
 package ser120.ChessProject2;
 import java.util.Scanner;
+import java.util.Arrays;
 
 
 public class ChessPlayer {
@@ -84,38 +86,49 @@ public class ChessPlayer {
 			//checks that there is a piece in the chosen tile
 			if (boardData[startCol][startRow] != null){
 				//checks that the selected piece belongs to the player whose turn it currently is
-				if (boardData[startCol][startRow].getPlayer() == player){
+				if (boardData[startCol][startRow].getTeam() == player.getTeam()){
 					System.out.print("Where would you like to move it?");
 					endCol = promptUserCol(myScanner);
 					endRow = promptUserRow(myScanner);
 				
-					if (boardData[startCol][startRow].checkMoveValidity(startCol,startRow,endCol,endRow)){
-						//if this piece can make this piece, the move is valid
-						moveIsValid = true;
+				//checks that the selected end location is different than the start location
+					if (startCol != endCol || startRow != endRow){
+				
+						if (boardData[startCol][startRow].checkMoveValidity(startCol,startRow,endCol,endRow)){
+							//if this piece can make this piece, the move is valid
+							moveIsValid = true;
+						} else {
+							//if this piece cannot make that move, the loop must repeat
+							//this code is tehcnically unecessary, but it verifies that the loop must repeat
+							moveIsValid = false;
+							System.out.print("That was not a valid move. (this piece cannot move that way)");
+						}
+						
 					} else {
-						//if this piece cannot make that move, the loop must repeat
-						//this code is tehcnically unecessary, but it verifies that the loop must repeat
 						moveIsValid = false;
-						System.out.print("That was not a valid move.");
+						System.out.print("That was not a valid move. (you cannot stay put)");
 					}
 					
 				} else {
 					//if this piece doesn't belong to the player, the loop must repeat
 					//this code is tehcnically unecessary, but it verifies that the loop must repeat
 					moveIsValid = false;
-					System.out.print("That was not a valid move.");
+					System.out.print("That was not a valid move.(this is not your piece)");
 				}
 				
 			} else {
 				//if there is no piece there to begin with, the loop must repeat
 				//this code is tehcnically unecessary, but it verifies that the loop must repeat
 				moveIsValid = false;
-				System.out.print("That was not a valid move.");
+				System.out.print("That was not a valid move.(there is no piece there)");
 			}
 			
 		}
 		//exit while loop, means a valid move has been described\
 		//move the piece
+		int[][] pathArr = new int[board.getBoardNumCols()][board.getBoardNumRows()];
+		pathArr = boardData[startCol][startRow].drawPath(startCol,startRow,endCol,endRow,board);
+		System.out.println(Arrays.deepToString(pathArr).replace("], ", "]\n nextcol: "));
 		board.movePiece(startCol,startRow,endCol,endRow);
 		//here, other things might happen when the piece moves, such as capturing, but I don't know what that is yet
 	}
@@ -138,6 +151,7 @@ public class ChessPlayer {
 			if (chosenCol == -1){
 			//if it was not a valid entry, convertCol should return null
 			//loop must repeat
+				System.out.println("That is not a coordinate on the board, please enter something else.");
 				isRealCoord = false;
 			} else {
 			//if chosenCol does get given a value by convertCol, the loop can end
@@ -165,6 +179,7 @@ public class ChessPlayer {
 			if (chosenRow == -1){
 			//if it was not a valid entry, convertCol should return null
 			//loop must repeat
+				System.out.println("That is not a coordinate on the board, please enter something else.");
 				isRealCoord = false;
 			} else {
 			//if chosenCol does get given a value by convertCol, the loop can end

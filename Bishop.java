@@ -17,7 +17,18 @@ class Bishop extends Piece {
 	//methods
 	public boolean checkMoveValidity(int startCol, int startRow, int endCol, int endRow){
 		//check move validity for this piece, how does this piece move?
-		return true;
+		//diagonal movements only
+		//System.out.println(endCol + " - " + startCol + " = " + (endCol - startCol) + " and " + endRow + " - " + startRow + " = " + (endRow - startRow));
+		if (Math.abs(endCol - startCol) != Math.abs(endRow - startRow)){
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	public int[][] drawPath(int startCol, int startRow, int endCol, int endRow, Board board){
+		int [][] pathArray = new int[board.getBoardNumCols()][board.getBoardNumRows()];
+		return pathArray;
 	}
 	
 	//returns a string to print, represents the piece on the board, helper method for the printer, 
