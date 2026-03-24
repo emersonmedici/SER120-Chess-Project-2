@@ -202,6 +202,7 @@ public class ChessPlayer {
 		// if (!(pathIsClear()))
 		// moveIsValid = false
 		// else... carry on
+		return true;
 	}
 	
 	

@@ -8,8 +8,8 @@ class King extends Piece {
 	//variables (add if needed)
 	
 	//constructors
-	public King(Player initPlayer, String initType){
-		super(initPlayer, "king");
+	public King(Player initPlayer){
+		super(initPlayer);
 	}
 	
 	//methods
@@ -36,4 +36,10 @@ class King extends Piece {
 			return "WKI";
 		}
 	}
+	
+	//returns a string that says what type of piece it is
+	public String getType(){
+		return "king";
+	}
+	
 }

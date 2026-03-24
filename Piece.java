@@ -13,10 +13,9 @@ abstract class Piece {
 	public String type;
   
   //constructors
-	public Piece(Player initPlayer, String initType){
+	public Piece(Player initPlayer){
 		this.player = initPlayer;
 		this.team = player.getTeam();
-		this.type = initType;
 	}
   
   //methods
@@ -30,9 +29,8 @@ abstract class Piece {
 		return this.team;
 	}
 	
-	public String getType(){
-		return this.type;
-	}
+	//each piece will return a string corresponding to its type, ex: a King would return "king", this is a useful method for detecting checkmate
+	public abstract String getType();
 	
 	//method to check the validity of a move based on what kind of piece it is trying to move, need to define in each different piece class
 	public abstract boolean checkMoveValidity(int startCol, int startRow, int endCol, int endRow);

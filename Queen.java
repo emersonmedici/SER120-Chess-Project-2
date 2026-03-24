@@ -9,8 +9,8 @@ class Queen extends Piece {
 	//variables (add if needed)
 	
 	//constructors
-	public Queen(Player initPlayer, String initType){
-		super(initPlayer, "queen");
+	public Queen(Player initPlayer){
+		super(initPlayer);
 	}
 	
 	//methods
@@ -36,6 +36,11 @@ class Queen extends Piece {
 		} else {
 			return "WQ ";
 		}
+	}
+	
+	//returns a string that says what type of piece it is
+	public String getType(){
+		return "queen";
 	}
 	
 	

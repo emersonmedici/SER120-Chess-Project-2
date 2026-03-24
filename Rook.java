@@ -9,8 +9,8 @@ class Rook extends Piece {
 	//variables (add if needed)
 	
 	//constructors
-	public Rook(Player initPlayer, String initType){
-		super(initPlayer, "rook");
+	public Rook(Player initPlayer){
+		super(initPlayer);
 	}
 	
 	//methods
@@ -87,6 +87,11 @@ class Rook extends Piece {
 		} else {
 			return "WR ";
 		}
+	}
+	
+	//returns a string that says what type of piece it is
+	public String getType(){
+		return "rook";
 	}
 	
 }

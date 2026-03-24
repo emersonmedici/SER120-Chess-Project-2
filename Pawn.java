@@ -10,8 +10,8 @@ class Pawn extends Piece {
 	//variables (add if needed)
 	
 	//constructors
-	public Pawn(Player initPlayer, String initType){
-		super(initPlayer, "pawn");
+	public Pawn(Player initPlayer){
+		super(initPlayer);
 	}
 	
 	//methods
@@ -46,6 +46,11 @@ class Pawn extends Piece {
 		} else {
 			return "WP ";
 		}
+	}
+	
+	//returns a string that says what type of piece it is
+	public String getType(){
+		return "pawn";
 	}
 	
 }

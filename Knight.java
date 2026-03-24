@@ -10,8 +10,8 @@ class Knight extends Piece {
 	//variables (add if needed)
 	
 	//constructors
-	public Knight(Player initPlayer, String initType){
-		super(initPlayer, "knight");
+	public Knight(Player initPlayer){
+		super(initPlayer);
 	}
 	
 	//methods
@@ -43,6 +43,11 @@ class Knight extends Piece {
 		} else {
 			return "WKN";
 		}
+	}
+	
+	//returns a string that says what type of piece it is
+	public String getType(){
+		return "knight";
 	}
 	
 }
