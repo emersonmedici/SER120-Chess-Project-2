@@ -154,9 +154,9 @@ public class ChessPlayer {
 		boolean isRealCoord = false;
 		
 		
-		System.out.println("Enter a column: ");
 		//loops until a real coordinate that exists on the board is given
 		while (!isRealCoord){
+			System.out.println("Enter a column: ");
 			userInput = myScanner.nextLine();
 			chosenCol = convertCol(userInput); 
 			if (chosenCol == -1){
@@ -182,9 +182,9 @@ public class ChessPlayer {
 		boolean isRealCoord = false;
 		
 		
-		System.out.println("Enter a row: ");
 		//loops until a real coordinate that exists on the board is given
 		while (!isRealCoord){
+			System.out.println("Enter a row: ");
 			userInput = myScanner.nextLine();
 			chosenRow = convertRow(userInput); 
 			if (chosenRow == -1){

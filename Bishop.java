@@ -28,6 +28,54 @@ class Bishop extends Piece {
 	
 	public int[][] drawPath(int startCol, int startRow, int endCol, int endRow, Board board){
 		int [][] pathArray = new int[board.getBoardNumCols()][board.getBoardNumRows()];
+		
+		//num spaces the piece moves
+		int numSpacesMoved = 0;
+		
+		//fill up array with zeros to start
+		for (int row = 0; row < board.getBoardNumRows(); row++){
+			//we are in [row] row!
+			for (int col = 0; col < board.getBoardNumCols(); col++){
+				//we are in [col] column or [row] row
+				pathArray[col][row] = 0;
+			}
+		}
+		
+		//variables determining where to place values in the array, starting at the "start" position
+		int currentCol = startCol;
+		int currentRow = startRow;
+		
+		//figure out direction the piece is moving
+		if(endCol < startCol){ //moving LEFT
+			if (endRow < startRow) { //moving LEFT and UP 
+				for(int i = 0; i < numSpacesMoved; i++){
+					currentCol--;
+					currentRow--;
+					pathArray[currentCol][startRow] = 1;
+				}
+			} else { //moving LEFT and DOWN
+				for(int i = 0; i < numSpacesMoved; i++){
+					currentCol--;
+					currentRow++;
+					pathArray[currentCol][startRow] = 1;
+				}
+			}
+		} else { //moving RIGHT
+			if (endRow < startRow) { //moving RIGHT and UP 
+				for(int i = 0; i < numSpacesMoved; i++){
+					currentCol++;
+					currentRow--;
+					pathArray[currentCol][startRow] = 1;
+				}
+			} else { //moving RIGHT and DOWN
+				for(int i = 0; i < numSpacesMoved; i++){
+					currentCol++;
+					currentRow++;
+					pathArray[currentCol][startRow] = 1;
+				}
+			}
+		}
+		
 		return pathArray;
 	}
 	

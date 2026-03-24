@@ -32,7 +32,33 @@ class Knight extends Piece {
 		// if it does, then put a 1 on the spot where it lands
 		// otherwise don't put any 1's
 		//this should work with the pathIsClear method you write in ChessPlayer
+		
 		int [][] pathArray = new int[board.getBoardNumCols()][board.getBoardNumRows()];
+		//putting the boardData array here to reference
+		Piece [][] boardData = new Piece[board.getBoardNumCols()][board.getBoardNumRows()];
+		boardData = board.getBoardData();
+		
+		//fill up array with zeros to start
+		for (int row = 0; row < board.getBoardNumRows(); row++){
+			//we are in [row] row!
+			for (int col = 0; col < board.getBoardNumCols(); col++){
+				//we are in [col] column or [row] row
+				pathArray[col][row] = 0;
+			}
+		}
+		
+		if (boardData[endCol][endRow] != null){ //if there is a piece in the landing spot 
+			if (boardData[endCol][endRow].getTeam() == this.team){ //if that piece is on the same team
+				pathArray[endCol][endRow] = 1;
+			} else { //if that piece is on the opposite team
+				//placeholder code, it was already zero but this just verifies
+				pathArray[endCol][endRow] = 0;
+			}
+		} else { //if the landing spot is empty
+			//placeholder code, it was already zero but this just verifies
+			pathArray[endCol][endRow] = 0;
+		}
+		
 		return pathArray;
 	}
 	

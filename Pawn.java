@@ -101,6 +101,19 @@ class Pawn extends Piece {
 	
 	public int[][] drawPath(int startCol, int startRow, int endCol, int endRow, Board board){
 		int [][] pathArray = new int[board.getBoardNumCols()][board.getBoardNumRows()];
+		//king moves only one space in a direction, so there's not a "path," just a landing spot
+		//fill up array with zeros to start
+		for (int row = 0; row < board.getBoardNumRows(); row++){
+			//we are in [row] row!
+			for (int col = 0; col < board.getBoardNumCols(); col++){
+				//we are in [col] column or [row] row
+				pathArray[col][row] = 0;
+			}
+		}
+		
+		//puts a 1 in the landing spot
+		pathArray[endCol][endRow] = 1;
+		
 		return pathArray;
 	}
 	
