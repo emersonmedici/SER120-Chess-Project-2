@@ -46,13 +46,13 @@ public class ChessPlayer {
 	public void playRound(Scanner myScanner){
 		printer.printBoard(board);
 		takeTurn(player1, myScanner);
-		if (IsCheckmate()){
+		if (checkForCheckmate()){
 			printer.printBoard(board);
 			stillPlaying = false;
 		} else {
 			printer.printBoard(board);
 			takeTurn(player2, myScanner);
-			if (IsCheckmate()){
+			if (checkForCheckmate()){
 				stillPlaying = false;
 				printer.printBoard(board);
 			}
@@ -96,9 +96,18 @@ public class ChessPlayer {
 				//checks that the selected end location is different than the start location
 					if (startCol != endCol || startRow != endRow){
 				
+						//checks that this kind of piece can make this move
 						if (boardData[startCol][startRow].checkMoveValidity(startCol,startRow,endCol,endRow,board)){
-							//if this piece can make this move, the move is valid
-							moveIsValid = true;
+							
+							if(pathIsClear(startCol,startRow,endCol,endRow,board)){
+								//if the path is clear (no pieces in its path and if it lands on a piece it is capturable) the move is valid
+								moveIsValid = true;
+							} else {
+								//if this piece cannot make that move, the loop must repeat
+								//this code is tehcnically unecessary, but it verifies that the loop must repeat
+								moveIsValid = false;
+								System.out.print("That was not a valid move. (there is a piece in the way)");
+							}
 						} else {
 							//if this piece cannot make that move, the loop must repeat
 							//this code is tehcnically unecessary, but it verifies that the loop must repeat
@@ -214,7 +223,16 @@ public class ChessPlayer {
 		//moveIsValid = false
 		return true;
 	}
+	
+	public boolean checkForCheckmate(){
+		return false;
+	}
+	
 
+//~~~Win condition found here!~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	
+	
+/*
 	public static int[] GetKing(Board board){
 		//go through the array 
 			//through a loop
@@ -238,7 +256,7 @@ public class ChessPlayer {
 	}
 	
 	//a method to see if the other team can capture the king
-	public boolean CaptureKing(Board board,int Startcol, int Startrow){
+	public boolean caputreking(Board board,int Startcol, int Startrow){
 		//need to add where the king position and if the peice can attack
 		//the king
 		King positionking = GetKing(board);
@@ -249,7 +267,7 @@ public class ChessPlayer {
 		return false;
 	}
 	
-	public boolean IsCheck(){
+	public boolean isCheck(){
 		//if piece can attack king then say check
 		if(captureking == true){
 			System.out.println("you are in check!");
@@ -270,7 +288,11 @@ public class ChessPlayer {
 		}else{
 			return false;
 		}
-	}
+	}*/
+	
+	
+//~~end win condition methods~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~	
+
 	//simple method to convert user input into usable coordinates, should make more reliable and flexible in the future but this works for now
 	public int convertCol(String string){
 		switch (string) {
