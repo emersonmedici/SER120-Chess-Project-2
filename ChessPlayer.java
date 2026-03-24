@@ -205,7 +205,43 @@ public class ChessPlayer {
 		//create an array of integers (width and height same as board)
 		//set the array equal to board[startCol][startRow].drawPath(startCol,startRow,endCol,endRow,board)
 		
+		//putting the boardData array here to reference
+		Piece [][] boardData = new Piece[board.getBoardNumCols()][board.getBoardNumRows()];
+		boardData = board.getBoardData();
+		
+		//making the path array with drawPath
+		int [][] pathArr = new int[board.getBoardNumCols()][board.getBoardNumRows()];
+		pathArr = boardData[startCol][startRow].drawPath(startCol,startRow,endCol,endRow,board);
+		
+		//start with this boolean
+		boolean clearPath = true;
+		
 		//now use nested for loops to go through the whole path array
+		
+		for (int col = 0; col < board.getBoardNumCols(); col++){
+			//we are in [col] column!
+			for (int row = 0; row < board.getBoardNumRows(); row++){
+				//we are in [row] row of [col] column
+				if (pathArr[col][row] == 1 ){ //if this space is part of the path
+					if(boardData[col][row] != null){ //if there is a piece on this space
+						if(col == endCol && row == endRow){ //if this space is the landing space
+							if(boardData[endCol][endRow].getTeam() == boardData[startCol][startRow].getTeam()){ //if the piece on the landing space is the same team as the piece that is moving
+								clearPath = false; //not allowed
+							} else { //if the piece occupying the landing space is on the opposite team as the piece that is moving
+								clearPath = true; //this IS allowed, it captures
+							}
+						} else { //if this space is NOT the landing space
+							clearPath = false; //return false! something is in the way of the path, this move cannot happen!
+						}
+					} else {//if there is NO PIECE on this space
+						//do nothing. the space is empty, so there is nothing in the way yet.
+					}
+				} else { // if this space is NOT part of the path
+					//do nothing. this space is not part of the path, so there is no reason to check it
+				}
+			}
+		}
+		
 		//whereever pathArray[x][y] == 1, check if there board[x][y] != null
 		//if it's not null, 
 			// check if boardData[endCol][endRow].getTeam() == boardData[startCol][startRow].getTeam()
@@ -221,7 +257,7 @@ public class ChessPlayer {
 		// carry on with further checks
 		// else... 
 		//moveIsValid = false
-		return true;
+		return clearPath;
 	}
 	
 	public boolean checkForCheckmate(){
