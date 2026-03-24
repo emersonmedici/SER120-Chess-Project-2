@@ -46,13 +46,13 @@ public class ChessPlayer {
 	public void playRound(Scanner myScanner){
 		printer.printBoard(board);
 		takeTurn(player1, myScanner);
-		if (checkForCheckmate()){
+		if (IsCheckmate()){
 			printer.printBoard(board);
 			stillPlaying = false;
 		} else {
 			printer.printBoard(board);
 			takeTurn(player2, myScanner);
-			if (checkForCheckmate()){
+			if (IsCheckmate()){
 				stillPlaying = false;
 				printer.printBoard(board);
 			}
@@ -238,7 +238,7 @@ public class ChessPlayer {
 	}
 	
 	//a method to see if the other team can capture the king
-	public boolean caputreking(Board board,int Startcol, int Startrow){
+	public boolean CaptureKing(Board board,int Startcol, int Startrow){
 		//need to add where the king position and if the peice can attack
 		//the king
 		King positionking = GetKing(board);
@@ -249,7 +249,7 @@ public class ChessPlayer {
 		return false;
 	}
 	
-	public boolean isCheck(){
+	public boolean IsCheck(){
 		//if piece can attack king then say check
 		if(captureking == true){
 			System.out.println("you are in check!");
