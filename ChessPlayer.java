@@ -190,6 +190,20 @@ public class ChessPlayer {
 		
 	}
 	
+	public boolean pathIsClear(int startCol, int startRow, int endCol, int endRow, Board board){
+		//create an array of integers (width and height same as board)
+		//set the array equal to board[startCol][startRow].drawPath(startCol,startRow,endCol,endRow,board)
+		//now use nested for loops to go through the whole path array
+		//whereever pathArray[x][y] == 1, check if there board[x][y] != null
+		//if it's not null, return false
+		//otherwise, return true
+		
+		//up in take turn, have an if statement
+		// if (!(pathIsClear()))
+		// moveIsValid = false
+		// else... carry on
+	}
+	
 	
 	public boolean checkForCheckmate(){
 		//checks for win condition, returns true if somebody won

@@ -26,6 +26,12 @@ class Knight extends Piece {
 	}
 	
 	public int[][] drawPath(int startCol, int startRow, int endCol, int endRow, Board board){
+		// instead of filling this array with 0's and mapping the path of 1's, 
+		// just fill with zeros
+		// check if the spot where it lands holds a piece on the same team
+		// if it does, then put a 1 on the spot where it lands
+		// otherwise don't put any 1's
+		//this should work with the pathIsClear method you write in ChessPlayer
 		int [][] pathArray = new int[board.getBoardNumCols()][board.getBoardNumRows()];
 		return pathArray;
 	}
