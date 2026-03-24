@@ -10,11 +10,13 @@ abstract class Piece {
   //variables
 	public Player player;
 	public int team;
+	public String type;
   
   //constructors
-	public Piece(Player initPlayer){
+	public Piece(Player initPlayer, String initType){
 		this.player = initPlayer;
 		this.team = player.getTeam();
+		this.type = initType;
 	}
   
   //methods
@@ -26,6 +28,10 @@ abstract class Piece {
 	
 	public int getTeam(){
 		return this.team;
+	}
+	
+	public String getType(){
+		return this.type;
 	}
 	
 	//method to check the validity of a move based on what kind of piece it is trying to move, need to define in each different piece class

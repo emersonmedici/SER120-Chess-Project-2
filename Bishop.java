@@ -10,8 +10,8 @@ class Bishop extends Piece {
 	//variables (add if needed)
 	
 	//constructors
-	public Bishop(Player initPlayer){
-		super(initPlayer);
+	public Bishop(Player initPlayer, String initType){
+		super(initPlayer,"bishop");
 	}
 	
 	//methods

@@ -10,8 +10,8 @@ class Knight extends Piece {
 	//variables (add if needed)
 	
 	//constructors
-	public Knight(Player initPlayer){
-		super(initPlayer);
+	public Knight(Player initPlayer, String initType){
+		super(initPlayer, "knight");
 	}
 	
 	//methods

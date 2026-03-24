@@ -9,8 +9,8 @@ class Rook extends Piece {
 	//variables (add if needed)
 	
 	//constructors
-	public Rook(Player initPlayer){
-		super(initPlayer);
+	public Rook(Player initPlayer, String initType){
+		super(initPlayer, "rook");
 	}
 	
 	//methods

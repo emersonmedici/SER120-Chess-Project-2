@@ -8,8 +8,8 @@ class King extends Piece {
 	//variables (add if needed)
 	
 	//constructors
-	public King(Player initPlayer){
-		super(initPlayer);
+	public King(Player initPlayer, String initType){
+		super(initPlayer, "king");
 	}
 	
 	//methods

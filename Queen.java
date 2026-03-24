@@ -9,8 +9,8 @@ class Queen extends Piece {
 	//variables (add if needed)
 	
 	//constructors
-	public Queen(Player initPlayer){
-		super(initPlayer);
+	public Queen(Player initPlayer, String initType){
+		super(initPlayer, "queen");
 	}
 	
 	//methods
