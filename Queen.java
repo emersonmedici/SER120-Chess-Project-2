@@ -14,7 +14,7 @@ class Queen extends Piece {
 	}
 	
 	//methods
-	public boolean checkMoveValidity(int startCol, int startRow, int endCol, int endRow){
+	public boolean checkMoveValidity(int startCol, int startRow, int endCol, int endRow, Board board){
 		//check move validity for this piece, how does this piece move?
 		//queen is combo of rook and bishop
 		

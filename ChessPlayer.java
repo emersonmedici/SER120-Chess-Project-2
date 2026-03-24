@@ -41,6 +41,8 @@ public class ChessPlayer {
 	}
 	
 	//each round, player 1 takes a turn, then player 2 takes a turn. if someone wins, the game ends
+	//this is the method that calls check for checkmate. If that returns true, some kind of "end message" method shoudl run
+	//which would determine and announce the winner, or maybe this could be divided into more separate methods
 	public void playRound(Scanner myScanner){
 		printer.printBoard(board);
 		takeTurn(player1, myScanner);
@@ -94,8 +96,8 @@ public class ChessPlayer {
 				//checks that the selected end location is different than the start location
 					if (startCol != endCol || startRow != endRow){
 				
-						if (boardData[startCol][startRow].checkMoveValidity(startCol,startRow,endCol,endRow)){
-							//if this piece can make this piece, the move is valid
+						if (boardData[startCol][startRow].checkMoveValidity(startCol,startRow,endCol,endRow,board)){
+							//if this piece can make this move, the move is valid
 							moveIsValid = true;
 						} else {
 							//if this piece cannot make that move, the loop must repeat
@@ -193,15 +195,23 @@ public class ChessPlayer {
 	public boolean pathIsClear(int startCol, int startRow, int endCol, int endRow, Board board){
 		//create an array of integers (width and height same as board)
 		//set the array equal to board[startCol][startRow].drawPath(startCol,startRow,endCol,endRow,board)
+		
 		//now use nested for loops to go through the whole path array
 		//whereever pathArray[x][y] == 1, check if there board[x][y] != null
-		//if it's not null, return false
-		//otherwise, return true
+		//if it's not null, 
+			// check if boardData[endCol][endRow].getTeam() == boardData[startCol][startRow].getTeam()
+			// if this is true, then the piece is trying to land on a friendly piece, which is not allowed
+				// return false
+			//otherwise, this is not true, so it's capturing an enemy, which is allowed
+			//return true
+		//otherwise, it is null, empty spot 
+		//return true
 		
 		//up in take turn, have an if statement
-		// if (!(pathIsClear()))
-		// moveIsValid = false
-		// else... carry on
+		// if (pathIsClear())
+		// carry on with further checks
+		// else... 
+		//moveIsValid = false
 		return true;
 	}
 	

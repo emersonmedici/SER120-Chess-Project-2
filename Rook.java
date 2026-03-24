@@ -14,7 +14,7 @@ class Rook extends Piece {
 	}
 	
 	//methods
-	public boolean checkMoveValidity(int startCol, int startRow, int endCol, int endRow){
+	public boolean checkMoveValidity(int startCol, int startRow, int endCol, int endRow, Board board){
 		//check move validity for this piece, how does this piece move?
 		//straight forward or straight back, or to the left or to the right  
 		if(endRow != startRow && endCol != startCol){
