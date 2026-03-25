@@ -45,13 +45,13 @@ public class ChessPlayer {
 	//which would determine and announce the winner, or maybe this could be divided into more separate methods
 	public void playRound(Scanner myScanner){
 		printer.printBoard(board);
-		takeTurn(player1, myScanner);
+		takeTurn(player2, myScanner);
 		if (checkForCheckmate()){
 			printer.printBoard(board);
 			stillPlaying = false;
 		} else {
 			printer.printBoard(board);
-			takeTurn(player2, myScanner);
+			takeTurn(player1, myScanner);
 			if (checkForCheckmate()){
 				stillPlaying = false;
 				printer.printBoard(board);
