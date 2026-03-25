@@ -18,8 +18,8 @@ public class GameManager {
 	//constructors
     public GameManager() {
 		this.running = true;
-		this.myChessPlayer = new ChessPlayer();
 		this.myChessReplayer = new ChessReplayer();
+		this.myChessPlayer = new ChessPlayer(myChessReplayer);
 	}
 
 	//methods

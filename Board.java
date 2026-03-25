@@ -98,6 +98,24 @@ public class Board {
 		
 	}
 	
+	public String toString(){
+		String string = "";
+		for (int col = 0; col < numCols; col++){
+			//we are in [col] column!
+			for (int row = 0; row < numRows; row++){
+				//we are in [row] row of [col] column
+				if (boardData[col][row] == null){
+					string += "none";
+				} else {
+					string += boardData[col][row].getType();
+					string += boardData[col][row].getTeam();
+				}
+				string += "\n";
+			}
+		}
+		return string;
+	}
+	
 	
 	//getters
 	public Piece[][] getBoardData(){
