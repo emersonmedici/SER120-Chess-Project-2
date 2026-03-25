@@ -142,6 +142,10 @@ public class ChessPlayer {
 		System.out.println(Arrays.deepToString(pathArr).replace("], ", "]\n nextcol: "));
 		board.movePiece(startCol,startRow,endCol,endRow);
 		//here, other things might happen when the piece moves, such as capturing, but I don't know what that is yet
+		//actually, here I am going to check if the pawn must be promoted... don't ask why idk
+		if (boardData[endCol][endRow].getType().equals("pawn")){
+			board.handlePromotion(endCol,endRow,myScanner, player);
+		}
 	}
 	
 	//these two methods (promptUserCol and promptUserRow) should be combined into one at some point, they are similar enough that it is doable with w=some parameters and/or conditional statements

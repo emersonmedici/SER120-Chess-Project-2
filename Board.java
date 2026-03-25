@@ -2,6 +2,7 @@
 
 package ser120.ChessProject2;
 //import ser120.ChessProject2.Piece;
+import java.util.Scanner;
 
 public class Board {
 	//stores and handles the board data
@@ -73,6 +74,28 @@ public class Board {
 		boardData[endCol][endRow] = boardData[startCol][startRow];
 		//removes the piece from the old spot
 		boardData[startCol][startRow] = null;
+	}
+	
+	public void handlePromotion(int col, int row, Scanner myScanner, Player player){
+		//if the pawn in question is WHITE and it reaches row 8 (value 0) OR if the pawn is BLACK and reaches row 1 (value 7)
+		// prompt user asking what they want to promote it to
+		//swap the piece at x,y for a piece of that type
+		int team = boardData[col][row].getTeam();
+		if (((team == 1) && (row == 0)) || (team == 0) && (row == 1)){
+			String userInput = "";
+			System.out.println("Your pawn reached the furthest rank! What do you want to promote it to? Type 'r' for rook, 'b' for bishop, 'k' for knight, or anything else for queen: ");
+			userInput = myScanner.nextLine();
+			if (userInput.equals("r")){
+				boardData[col][row] = new Rook(player);
+			} else if (userInput.equals("b")){
+				boardData[col][row] = new Bishop(player);
+			} else if (userInput.equals("k")){
+				boardData[col][row] = new Knight(player);
+			} else {
+				boardData[col][row] = new Queen(player);
+			}
+		}
+		
 	}
 	
 	

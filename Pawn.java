@@ -63,7 +63,11 @@ class Pawn extends Piece {
 							}
 						}
 					} else { //if the piece is not trying to move horizontally
-						return true; //the piece is making a valid 1-tile-forward move
+						if (boardData[endCol][endRow] == null){ //if there is no piece in the landing spot at all
+							return true; //the piece is making a valid 1-tile-forward move
+						} else { //if the space is occupied
+							return false;
+						}
 					}
 				}
 			}
@@ -90,7 +94,11 @@ class Pawn extends Piece {
 							}
 						}
 					} else { //if the piece is not trying to move horizontally
-						return true; //the piece is making a valid 1-tile-forward move
+						if (boardData[endCol][endRow] == null){ //if there is no piece in the landing spot at all
+							return true; //the piece is making a valid 1-tile-forward move
+						} else { //if the space is occupied
+							return false;
+						}
 					}
 				}
 			}
