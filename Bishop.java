@@ -30,7 +30,7 @@ class Bishop extends Piece {
 		int [][] pathArray = new int[board.getBoardNumCols()][board.getBoardNumRows()];
 		
 		//num spaces the piece moves
-		int numSpacesMoved = 0;
+		int numSpacesMoved = Math.abs(endCol-startCol);
 		
 		//fill up array with zeros to start
 		for (int row = 0; row < board.getBoardNumRows(); row++){

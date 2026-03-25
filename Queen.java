@@ -46,7 +46,7 @@ class Queen extends Piece {
 		
 		//if it's a bishop type movement
 		if (endCol != startCol && endRow != startRow){
-			
+			numSpacesMoved = Math.abs(endCol-startCol);
 			if(endCol < startCol){ //moving LEFT
 				if (endRow < startRow) { //moving LEFT and UP 
 					for(int i = 0; i < numSpacesMoved; i++){
