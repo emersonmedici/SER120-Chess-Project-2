@@ -213,7 +213,7 @@ public class Board {
 	}
 	
 
-	public boolean checkForCheckMate(Player player,Piece[][] board){
+	public boolean checkForCheckmate(Player player,Piece[][] board){
 		if(!isInCheck(player,board)){
 			//no check
 			return false;
