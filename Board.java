@@ -130,6 +130,101 @@ public class Board {
 		return this.numRows;
 	}
 
+	
+	//findKing();
+	public int[] findKingSquare(Player player,Piece[][] board){
+		//findung the kings positions through coordinates
+		int Team = player.getTeam();
+			for(int row = 0; row < getBoardNumRows();row++){
+				for(int col = 0; col < getBoardNumcols();col++){
+					Piece piece = board[row][col];
+					if(piece != null && piece.type.equals("king") && piece.getTeam() == Team){
+						//has it where the row is at index 0 and col at index 1
+						return new int[]{row,col};
+					} 
+				}
+			}
+			//if they can't find the king
+			return null;
+	}
+	
+	//isInCheck method(Player player)
+	public boolean isInCheck(Player player, Piece[][] board){
+		int[] kingsPosition =(findKingSquare(player,board));
+		int Team = player.getTeam();
+		int kingRow = kingsPosition[0];
+		int kingCol = kingsPosition[1];
+		for(int row = 0; row < getBoardNumRows(); row++){
+				for(int col = 0; col < getBoardNumcols();col++){
+					Piece piece = board[row][col];
+					if(piece != null && piece.getTeam() != Team){
+						//to see if the kings square that is currently on is underattack
+						if(piece.checkMoveValidity(row,col,kingRow,kingCol)){
+							return true;
+						}
+					}
+				}		
+		}
+		
+		return false;
+	}
+	
+	//make a copy of the board 
+	public Piece[][] copyBoard(Piece[][] board){
+		Piece[][] copy = new Piece[8][8];
+		for(int row = 0; row < 8; row++){
+			for(int col = 0; col < 8; col++){
+				copy[row][col] = board[row][col];
+			}
+		}
+		return copy;
+	}	
+	
+	//determines if the move they have made is legal or not 
+	public boolean getLegalMovement(Player player,Piece[][] board){
+		//checking if each piece of move is valid or not
+		for(int row = 0; row < getBoardNumRows(); row++){
+			for(int col = 0; col < getBoardNumCols();col++){
+				Piece piece = board[row][col];
+				if(piece != null && piece.getTeam() == player.getTeam()){
+					//for each square on the the board
+					for(int newRow = 0;newRow < getBoardNumRows();newRow++){
+						for(int newCol = 0; newCol < getBoardNumCols(); newCol++){
+							//if piece checkmovevalidity
+						Piece target = board[newRow][newCol];
+						if(piece.checkMoveValidity(row,col,newRow,newCol)){
+							Piece[][] tempBoard = copyBoard(board);
+							//-Simulate Move to see if the move they make is legal//
+								//creates a copy of the board an apply the move
+								tempBoard[newRow][newCol] = tempBoard[row][col];
+								tempBoard[row][col] = null;
+								//if the king is not in check
+								if(!isInCheck(player,tempBoard)){
+									return true;
+								}
+							} 
+						} 
+					}
+				}
+			}
+		}
+		//that means king is in check
+		return false;
+	}
+	
+
+	public boolean isInCheckMate(Player player,Piece[][] board){
+		if(!isInCheck(player,board)){
+			//no check
+			return false;
+		}
+		if(getLegalMovement(player,board) == false){
+			return true;
+		}
+		//found no legal movement to allow you to get out of check
+		return false;
+	}
+
 
 }
 
