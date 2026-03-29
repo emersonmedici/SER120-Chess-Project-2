@@ -129,8 +129,6 @@ public class Board {
 	public int getBoardNumRows(){
 		return this.numRows;
 	}
-
-	
 	//findKing();
 	public int[] findKingSquare(Player player,Piece[][] board){
 		//findung the kings positions through coordinates
