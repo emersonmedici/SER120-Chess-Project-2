@@ -285,74 +285,7 @@ public class ChessPlayer {
 		return clearPath;
 	}
 	
-	public boolean checkForCheckmate(){
-		return false;
-	}
-	
-
-//~~~Win condition found here!~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	
-	
-/*
-	public static int[] GetKing(Board board){
-		//go through the array 
-			//through a loop
-			//properly going to need to get back to this 
-				//most likely a better to do this or a correct way to do this
-			for(int row = 0; row < board.getBoardNumRows;row++){
-				for(int cols = 0; cols < board.getBoardNumcols;col++){
-					Piece peice = board[row][cols];
-					
-					if(Piece.type.equals("king") && takeTurn() != 0){
-						return new int[]{row,col};
-					}
-					
-					if(Piece.type.equals("king") && takeTurn() == 0){
-						return new int[]{row,col};
-					}
-				} 
-			}
-			
-			return null;
-	}
-	
-	//a method to see if the other team can capture the king
-	public boolean caputreking(Board board,int Startcol, int Startrow){
-		//need to add where the king position and if the peice can attack
-		//the king
-		King positionking = GetKing(board);
-		if( ){
-			
-		}
-		
-		return false;
-	}
-	
-	public boolean isCheck(){
-		//if piece can attack king then say check
-		if(captureking == true){
-			System.out.println("you are in check!");
-			return true;
-		}else{
-			return false;
-		}
-			//then warn saying you need to move peice within this turn 
-		//else
-			//you are not in check
-	}
-	
-	//checks if the kings is in Check,you captureking
-	public boolean isCheckmate(){
-		if(isCheck && !King.checkMoveValidity && captureking){
-			System.out.println("You are in checkmate");
-			return true;
-		}else{
-			return false;
-		}
-	}*/
-	
-	
-//~~end win condition methods~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~	
+	//checkmate method got moved to the board class	
 
 	//simple method to convert user input into usable coordinates, should make more reliable and flexible in the future but this works for now
 	public int convertCol(String string){
