@@ -133,8 +133,8 @@ public class Board {
 	public int[] findKingSquare(Player player,Piece[][] board){
 		//findung the kings positions through coordinates
 		int Team = player.getTeam();
-			for(int row = 0; row < 8;row++){
-				for(int col = 0; col < 8;col++){
+			for(int row = 0; row < this.getNumRows();row++){
+				for(int col = 0; col < this.getNumCols();col++){
 					Piece piece = board[row][col];
 					if(piece != null && piece.type.equals("king") && piece.getTeam() == Team){
 						//has it where the row is at index 0 and col at index 1
@@ -152,8 +152,8 @@ public class Board {
 		int Team = player.getTeam();
 		int kingRow = kingsPosition[0];
 		int kingCol = kingsPosition[1];
-		for(int row = 0; row < 8; row++){
-				for(int col = 0; col < 8;col++){
+		for(int row = 0; row < this.getBoardNumRows(); row++){
+				for(int col = 0; col < this.getBoardNumCols();col++){
 					Piece piece = board[row][col];
 					if(piece != null && piece.getTeam() != Team){
 						//to see if the kings square that is currently on is underattack
@@ -167,11 +167,13 @@ public class Board {
 		return false;
 	}
 	
-	//make a copy of the board 
+	//make a shallow copy of the board but should be fine
+	//if this does not do what it needs to do then we might need to do 
+	// a deep copy, but should not be an issue with how our peice class is set up with int and booleans
 	public Piece[][] copyBoard(Piece[][] board){
 		Piece[][] copy = new Piece[8][8];
-		for(int row = 0; row < 8; row++){
-			for(int col = 0; col < 8; col++){
+		for(int row = 0; row < this.getBoardNumRows(); row++){
+			for(int col = 0; col < this.getBoardNumCols(); col++){
 				copy[row][col] = board[row][col];
 			}
 		}
@@ -181,13 +183,13 @@ public class Board {
 	//determines if the move they have made is legal or not 
 	public boolean getLegalMovement(Player player,Piece[][] board){
 		//checking if each piece of move is valid or not
-		for(int row = 0; row < 8; row++){
-			for(int col = 0; col < 8;col++){
+		for(int row = 0; row < this.getBoardNumRows(); row++){
+			for(int col = 0; col < this.getBoardNumCols();col++){
 				Piece piece = board[row][col];
 				if(piece != null && piece.getTeam() == player.getTeam()){
 					//for each square on the the board
-					for(int newRow = 0;newRow < 8;newRow++){
-						for(int newCol = 0; newCol < 8; newCol++){
+					for(int newRow = 0;newRow < this.getBoardNumRows();newRow++){
+						for(int newCol = 0; newCol < this.getBoardNumCols(); newCol++){
 							//if piece checkmovevalidity
 						Piece target = board[newRow][newCol];
 							//creates a tempoary board
