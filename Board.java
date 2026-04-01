@@ -133,8 +133,8 @@ public class Board {
 	public int[] findKingSquare(Player player,Piece[][] board){
 		//findung the kings positions through coordinates
 		int Team = player.getTeam();
-			for(int row = 0; row < getBoardNumRows();row++){
-				for(int col = 0; col < getBoardNumcols();col++){
+			for(int row = 0; row < 8;row++){
+				for(int col = 0; col < 8;col++){
 					Piece piece = board[row][col];
 					if(piece != null && piece.type.equals("king") && piece.getTeam() == Team){
 						//has it where the row is at index 0 and col at index 1
@@ -152,8 +152,8 @@ public class Board {
 		int Team = player.getTeam();
 		int kingRow = kingsPosition[0];
 		int kingCol = kingsPosition[1];
-		for(int row = 0; row < getBoardNumRows(); row++){
-				for(int col = 0; col < getBoardNumcols();col++){
+		for(int row = 0; row < 8; row++){
+				for(int col = 0; col < 8;col++){
 					Piece piece = board[row][col];
 					if(piece != null && piece.getTeam() != Team){
 						//to see if the kings square that is currently on is underattack
@@ -181,19 +181,20 @@ public class Board {
 	//determines if the move they have made is legal or not 
 	public boolean getLegalMovement(Player player,Piece[][] board){
 		//checking if each piece of move is valid or not
-		for(int row = 0; row < getBoardNumRows(); row++){
-			for(int col = 0; col < getBoardNumCols();col++){
+		for(int row = 0; row < 8; row++){
+			for(int col = 0; col < 8;col++){
 				Piece piece = board[row][col];
 				if(piece != null && piece.getTeam() == player.getTeam()){
 					//for each square on the the board
-					for(int newRow = 0;newRow < getBoardNumRows();newRow++){
-						for(int newCol = 0; newCol < getBoardNumCols(); newCol++){
+					for(int newRow = 0;newRow < 8;newRow++){
+						for(int newCol = 0; newCol < 8; newCol++){
 							//if piece checkmovevalidity
 						Piece target = board[newRow][newCol];
-						if(piece.checkMoveValidity(row,col,newRow,newCol)){
-							Piece[][] tempBoard = copyBoard(board);
+							//creates a tempoary board
+						Piece[][] tempBoard = copyBoard(board);
+							//cehcks if the peice movement is valid
+						if(piece.checkMoveValidity(row,col,newRow,newCol,tempBoard)){
 							//-Simulate Move to see if the move they make is legal//
-								//creates a copy of the board an apply the move
 								tempBoard[newRow][newCol] = tempBoard[row][col];
 								tempBoard[row][col] = null;
 								//if the king is not in check
