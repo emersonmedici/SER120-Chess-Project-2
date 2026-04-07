@@ -95,4 +95,3 @@ class Rook extends Piece {
 	}
 	
 }
-

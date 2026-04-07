@@ -61,13 +61,15 @@ public class ChessPlayer {
 	public void playRound(Scanner myScanner){
 		printer.printBoard(board);
 		takeTurn(player2, myScanner);
-		if (checkForCheckmate()){
+		System.out.println("checkForCheckmate(player1) called by playRound");
+		if (board.checkForCheckmate(player1)){
 			printer.printBoard(board);
 			stillPlaying = false;
 		} else {
 			printer.printBoard(board);
 			takeTurn(player1, myScanner);
-			if (checkForCheckmate()){
+			System.out.println("checkForCheckmate(player2) called by playRound");
+			if (board.checkForCheckmate(player2)){
 				stillPlaying = false;
 				printer.printBoard(board);
 			}
@@ -285,7 +287,11 @@ public class ChessPlayer {
 		return clearPath;
 	}
 	
+	/*
 	//checkmate method got moved to the board class	
+	public boolean checkForCheckmate(){
+		return false;
+	}*/
 
 	//simple method to convert user input into usable coordinates, should make more reliable and flexible in the future but this works for now
 	public int convertCol(String string){

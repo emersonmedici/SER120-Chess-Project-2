@@ -129,48 +129,73 @@ public class Board {
 	public int getBoardNumRows(){
 		return this.numRows;
 	}
+	
+	
 	//findKing();
-	public int[] findKingSquare(Player player,Piece[][] board){
+	//removed baord parameter because this method is called by the board itself, so it can just reference itself
+	public int[] findKingSquare(Player player){
 		//findung the kings positions through coordinates
 		int Team = player.getTeam();
-			for(int row = 0; row < this.getNumRows();row++){
-				for(int col = 0; col < this.getNumCols();col++){
-					Piece piece = board[row][col];
-					if(piece != null && piece.type.equals("king") && piece.getTeam() == Team){
-						//has it where the row is at index 0 and col at index 1
-						return new int[]{row,col};
-					} 
+		System.out.println("player team " + player.getTeam());
+			for(int row = 0; row < this.getBoardNumRows();row++){
+				for(int col = 0; col < this.getBoardNumCols();col++){
+					if (boardData[row][col] != null){
+						//System.out.println("checked spot: not null");
+						//Piece piece = boardData[row][col];
+						//System.out.println("piece type: " + boardData[row][col].getType() + " piece team: " + boardData[row][col].getTeam() + " player team: " + player.getTeam());
+						//cannot reference an abstract object, abstract object arent really supposed to exist, so i removed all references to it and continued to reference the piece in question directly from the board's data array
+						if(boardData[row][col].getType().equals("king")){
+							System.out.println("is a king");
+							System.out.println("king team " + boardData[row][col].getTeam());
+							if(boardData[row][col].getTeam() == player.getTeam()){
+							//has it where the row is at index 0 and col at index 1
+								System.out.println("king found");
+								return new int[]{row,col};
+							}
+						} 
+					}
 				}
 			}
 			//if they can't find the king
+			//just put a print statement here for testing purposes
+			System.out.println("king not found");
 			return null;
 	}
 	
 	//isInCheck method(Player player)
-	public boolean isInCheck(Player player, Piece[][] board){
-		int[] kingsPosition =(findKingSquare(player,board));
-		int Team = player.getTeam();
-		int kingRow = kingsPosition[0];
-		int kingCol = kingsPosition[1];
-		for(int row = 0; row < this.getBoardNumRows(); row++){
-				for(int col = 0; col < this.getBoardNumCols();col++){
-					Piece piece = board[row][col];
-					if(piece != null && piece.getTeam() != Team){
-						//to see if the kings square that is currently on is underattack
-						if(piece.checkMoveValidity(row,col,kingRow,kingCol)){
-							return true;
-						}
-					}
-				}		
-		}
+	public boolean isInCheck(Player player){
+		System.out.println("findKingSquare called by isInCheck");
+		int[] kingsPosition =(findKingSquare(player));
 		
+		if (kingsPosition != null){
+		
+			int Team = player.getTeam();
+			int kingRow = kingsPosition[0];
+			int kingCol = kingsPosition[1];
+			for(int row = 0; row < this.getBoardNumRows(); row++){
+					for(int col = 0; col < this.getBoardNumCols();col++){
+						Piece piece = boardData[row][col];
+						//cannot reference an abstract object, abstract object arent really supposed to exist, so i removed all references to it and continued to reference the piece in question directly from the board's data array
+						if(boardData[row][col] != null && boardData[row][col].getTeam() != Team){
+						//to see if the kings square that is currently on is underattack
+						//I put "this" as the last parameter because it was missing
+							if(boardData[row][col].checkMoveValidity(row,col,kingRow,kingCol, this)){
+								System.out.println("isInCheck returns true");
+								return true;
+							}
+						}
+					}		
+			}
+		
+		}
+		System.out.println("isInCheck returns false");
 		return false;
 	}
 	
 	//make a shallow copy of the board but should be fine
 	//if this does not do what it needs to do then we might need to do 
 	// a deep copy, but should not be an issue with how our peice class is set up with int and booleans
-	public Piece[][] copyBoard(Piece[][] board){
+	public Piece[][] copyBoard1(Piece[][] board){
 		Piece[][] copy = new Piece[8][8];
 		for(int row = 0; row < this.getBoardNumRows(); row++){
 			for(int col = 0; col < this.getBoardNumCols(); col++){
@@ -180,30 +205,52 @@ public class Board {
 		return copy;
 	}	
 	
+		public Board copyBoard2(){
+		Player tempPlayer1 = new Player(0);
+		Player tempPlayer2 = new Player(1);
+		Board copy = new Board(tempPlayer1,tempPlayer2);
+		for(int row = 0; row < this.getBoardNumRows(); row++){
+			for(int col = 0; col < this.getBoardNumCols(); col++){
+				copy.boardData[row][col] = this.boardData[row][col];
+			}
+		}
+		return copy;
+	}
+	
 	//determines if the move they have made is legal or not 
-	public boolean getLegalMovement(Player player,Piece[][] board){
+	public boolean getLegalMovement(Player player){
 		//checking if each piece of move is valid or not
 		for(int row = 0; row < this.getBoardNumRows(); row++){
 			for(int col = 0; col < this.getBoardNumCols();col++){
-				Piece piece = board[row][col];
-				if(piece != null && piece.getTeam() == player.getTeam()){
+				Piece piece = boardData[row][col];
+				if(boardData[row][col] != null && boardData[row][col].getTeam() == player.getTeam()){
 					//for each square on the the board
 					for(int newRow = 0;newRow < this.getBoardNumRows();newRow++){
 						for(int newCol = 0; newCol < this.getBoardNumCols(); newCol++){
 							//if piece checkmovevalidity
-						Piece target = board[newRow][newCol];
+						//Piece target = boardData[newRow][newCol];
 							//creates a tempoary board
-						Piece[][] tempBoard = copyBoard(board);
-							//cehcks if the peice movement is valid
-						if(piece.checkMoveValidity(row,col,newRow,newCol,tempBoard)){
+							//Player tempPlayer1 = new Player(0);
+							//Player tempPlayer2 = new Player(1);
+							Board tempBoard = copyBoard2();					
+						//cehcks if the peice movement is valid
+							if (tempBoard.boardData[row][col] != null){
+								if(tempBoard.boardData[row][col].checkMoveValidity(row,col,newRow,newCol,tempBoard)){
 							//-Simulate Move to see if the move they make is legal//
+							/* og code with the array
 								tempBoard[newRow][newCol] = tempBoard[row][col];
 								tempBoard[row][col] = null;
+								*/
+								//using the movepiece method
+									tempBoard.movePiece(col,row,newCol,newRow);
+								
 								//if the king is not in check
-								if(!isInCheck(player,tempBoard)){
-									return true;
-								}
-							} 
+								System.out.println("tempBoard.isInCheck called by getLegalMovement");
+									if(tempBoard.isInCheck(player) == false){
+										return true;
+									}
+								} 
+							}
 						} 
 					}
 				}
@@ -214,12 +261,14 @@ public class Board {
 	}
 	
 
-	public boolean checkForCheckmate(Player player,Piece[][] board){
-		if(!isInCheck(player,board)){
+	public boolean checkForCheckmate(Player player){
+		System.out.println("isInCheck called by CheckForCheckmate");
+		if(!isInCheck(player)){
 			//no check
 			return false;
 		}
-		if(getLegalMovement(player,board) == false){
+		System.out.println("getLegalMovement called by checkForCheckmate");
+		if(getLegalMovement(player) == false){
 			return true;
 		}
 		//found no legal movement to allow you to get out of check
@@ -228,4 +277,3 @@ public class Board {
 
 
 }
-

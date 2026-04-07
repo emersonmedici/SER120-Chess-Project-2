@@ -133,4 +133,3 @@ class Queen extends Piece {
 	
 	
 }
-

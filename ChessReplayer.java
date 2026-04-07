@@ -123,6 +123,7 @@ public class ChessReplayer {
 
 	}
 	
+	//numbers hard coded to assume that its a standard chess board, change this later
 	public Piece[][] readFile(File file){
 		Piece [][] boardData = new Piece[8][8];
 		String currentLine = "";
@@ -180,5 +181,43 @@ public class ChessReplayer {
 		 
 		 return boardData;
 	}
+	
+	//in game manager
+	//have a boolean called isNewGame, set true if user inputs n, set false if user inputs r
+	//if user inputs n
+	//isNewGame = true
+	//myChessPlayer.playChess(myScanner,true)
+	//if user inputs r
+	//string = requestFoldername()
+	//playback(string)
+	//myChessPlayer.playChess(myScanner,false)
+	
+	//in chessplayer
+	//in playchess method
+	//if the boolean passed in is true
+	//do what it normally does
+	//if the boolean passed in is false
+	//print a diffferent message
+	//check for checkmate
+	//if not checkmate (no one has lost)
+	//THEN while(stillPlaying)
+	//	playRound(myScanner)
+	
+	//requestFolderName function{
+	//pass in scanner as a parameter
+	//prompt user for the name of the folder they want
+	//return the name
+	//}
+	
+	//playback function{
+	//take a folder name as a parameter
+	//print a default board, then wait one second
+	//then for each file in the folder, 
+	//	read the file into a boardData array (using readFile) 
+	//	and print that board state (using printBoard), 
+	//	turn ++, 
+	//	then wait one second
+	//}
+	
 	
 }
