@@ -11,8 +11,54 @@ public class Board {
 	private int numRows;
 	private int numCols;
 	private Piece[][] boardData;
+	
+	//default constructor
+	public Board(){
+	Player player1 = new Player(0);
+	Player player2 = new Player(2);
+    this.numRows = 8;
+    this.numCols = 8;
+    this.boardData = new Piece[numCols][numRows]; //it's coordinates: columns = x, rows = y
+	
+	boardData[0][0] = new Rook(player1);
+	boardData[1][0] = new Knight(player1);
+	boardData[2][0] = new Bishop(player1);
+	boardData[3][0] = new Queen(player1);
+	boardData[4][0] = new King(player1);
+	boardData[5][0] = new Bishop(player1);
+	boardData[6][0] = new Knight(player1);
+	boardData[7][0] = new Rook(player1);
+	
+	boardData[0][1] = new Pawn(player1);
+	boardData[1][1] = new Pawn(player1);
+	boardData[2][1] = new Pawn(player1);
+	boardData[3][1] = new Pawn(player1);
+	boardData[4][1] = new Pawn(player1);
+	boardData[5][1] = new Pawn(player1);
+	boardData[6][1] = new Pawn(player1);
+	boardData[7][1] = new Pawn(player1);
+	
+	
+    boardData[0][6] = new Pawn(player2);
+	boardData[1][6] = new Pawn(player2);
+	boardData[2][6] = new Pawn(player2);
+	boardData[3][6] = new Pawn(player2);
+	boardData[4][6] = new Pawn(player2);
+	boardData[5][6] = new Pawn(player2);
+	boardData[6][6] = new Pawn(player2);
+	boardData[7][6] = new Pawn(player2);
+	
+	boardData[0][7] = new Rook(player2);
+	boardData[1][7] = new Knight(player2);
+	boardData[2][7] = new Bishop(player2);
+	boardData[3][7] = new Queen(player2);
+	boardData[4][7] = new King(player2);
+	boardData[5][7] = new Bishop(player2);
+	boardData[6][7] = new Knight(player2);
+	boardData[7][7] = new Rook(player2);
+  }
 
-  //constructors
+  //constructors w parameters
   //we could make rows and cols variables in the future, but for now the columns and rows will always be 8
   //passing through players as a parameter here because the pieces need to be instantiated with them, the players will be made by the ChessPlayer object and passed through as parameters upon the board's creation
   public Board(/*int initRows, int initCols*/ Player player1, Player player2){
@@ -130,6 +176,10 @@ public class Board {
 		return this.numRows;
 	}
 	
+	//setter
+	public void setBoardData(Piece[][] array){
+		this.boardData = array;
+	}
 	
 	//findKing();
 	//removed baord parameter because this method is called by the board itself, so it can just reference itself

@@ -18,10 +18,11 @@ public class ChessReplayer {
 	//I don't know how to do that yet
 	
 	//variables
-	
+	public VisualOutput printer;
 	
 	//constructors
 	public ChessReplayer(){
+		this.printer = new VisualOutput();
 	}
 	
 	//methods
@@ -124,8 +125,9 @@ public class ChessReplayer {
 	}
 	
 	//numbers hard coded to assume that its a standard chess board, change this later
-	public Piece[][] readFile(File file){
+	public Board readFile(File file){
 		Piece [][] boardData = new Piece[8][8];
+		Board newBoard = new Board();
 		String currentLine = "";
 		//Creates a new instance of Scanner to read the file
 		Scanner fileInput; 
@@ -173,13 +175,15 @@ public class ChessReplayer {
 			}
 			
 			fileInput.close();
+			
+			newBoard.setBoardData(boardData);
 		   
 		 } catch (FileNotFoundException e){
 			System.out.println(e); 
 			System.exit(1); 
 		 }
 		 
-		 return boardData;
+		 return newBoard;
 	}
 	
 	//in game manager
@@ -209,6 +213,14 @@ public class ChessReplayer {
 	//return the name
 	//}
 	
+	public String requestFolderName(Scanner myScanner){
+		String userInput = "";
+		System.out.println("What is the name of the game you want to reload?");
+		userInput = myScanner.nextLine();
+		return userInput;
+		
+	}
+	
 	//playback function{
 	//take a folder name as a parameter
 	//print a default board, then wait one second
@@ -219,5 +231,18 @@ public class ChessReplayer {
 	//	then wait one second
 	//}
 	
+	public int playback(String name){
+		Board defaultBoard = new Board();
+		printer.printBoard(defaultBoard);
+		int turn = 0;
+		//folder = getfolder(name)
+		//for each file in folder
+			//Board board = readFile(file)
+			//printer.printBoard(board)
+			//turn++
+			//wait one second
+		
+		return turn;
+	}
 	
 }

@@ -28,15 +28,21 @@ public class GameManager {
 		Scanner myScanner = new Scanner(System.in);
 		//string to hold user input
 		String userInput = "";
+		boolean isNewGame = true;
 		
 		System.out.println("Welcome to the Chess Program!");
 		while (running){
 			System.out.println("Enter 'r' to reload an previous game, 'n' to start a new game, or anything else to quit: ");
 			userInput = myScanner.nextLine();
 			if (userInput.equals("r")){
-			//reload previous game using the chess replayer
+				isNewGame = false;
+				//reload previous game using the chess replayer
+				/*String name = myChessReplayer.requestFolderName(myScanner);
+				int turn = myChessReplayer.playback(name);
+				myChessPlayer.playChess(myScanner,isNewGame, turn);*/
 			} else if (userInput.equals("n")){
-				myChessPlayer.playChess(myScanner);
+				isNewGame = true;
+				myChessPlayer.playChess(myScanner,isNewGame, 0);
 			} else {
 				running = false;
 			}

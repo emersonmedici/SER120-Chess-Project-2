@@ -41,18 +41,36 @@ public class ChessPlayer {
 	
 	//runs the game, is a loop that plays rounds over and over as long as the game is still going (no one has won)
 	//pass in a scanner from the game manager to take input later
-	public void playChess(Scanner myScanner){
-		System.out.println("Starting a new chess game...");
+	public void playChess(Scanner myScanner, boolean isNewGame, int turn){
+		System.out.println("Starting a chess game...");
 		//System.out.println(board.toString());
-		//creates a folder path directory thing for this game
-		path = myChessReplayer.newGameFolder(myScanner);
-		/*if (path != null){
-			System.out.println("not null");
-		}*/
-		while(stillPlaying){
-			playRound(myScanner);
+		
+		if(isNewGame){
+			//creates a folder path directory thing for this game
+			path = myChessReplayer.newGameFolder(myScanner);
+			/*if (path != null){
+				System.out.println("not null");
+			}*/
+			while(stillPlaying){
+				playRound(myScanner);
+			}
+			System.out.println("Closing chess game...");
+		} else {
+			/*
+			while(stillPlaying){
+			if (turn%2 != 0){
+				takeTurn(player1, myScanner);
+				System.out.println("checkForCheckmate(player2) called by playRound");
+				if (board.checkForCheckmate(player2)){
+					stillPlaying = false;
+					printer.printBoard(board);
+				}
+				turn++;
+			}
+				playRound(myScanner);
+			}
+			System.out.println("Closing chess game...");*/
 		}
-		System.out.println("Closing chess game...");
 	}
 	
 	//each round, player 1 takes a turn, then player 2 takes a turn. if someone wins, the game ends
