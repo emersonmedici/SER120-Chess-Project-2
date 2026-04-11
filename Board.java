@@ -186,7 +186,7 @@ public class Board {
 	public int[] findKingSquare(Player player){
 		//findung the kings positions through coordinates
 		int Team = player.getTeam();
-		System.out.println("player team " + player.getTeam());
+		//System.out.println("player team " + player.getTeam());
 			for(int row = 0; row < this.getBoardNumRows();row++){
 				for(int col = 0; col < this.getBoardNumCols();col++){
 					if (boardData[row][col] != null){
@@ -195,11 +195,11 @@ public class Board {
 						//System.out.println("piece type: " + boardData[row][col].getType() + " piece team: " + boardData[row][col].getTeam() + " player team: " + player.getTeam());
 						//cannot reference an abstract object, abstract object arent really supposed to exist, so i removed all references to it and continued to reference the piece in question directly from the board's data array
 						if(boardData[row][col].getType().equals("king")){
-							System.out.println("is a king");
-							System.out.println("king team " + boardData[row][col].getTeam());
+							//System.out.println("is a king");
+							//System.out.println("king team " + boardData[row][col].getTeam());
 							if(boardData[row][col].getTeam() == player.getTeam()){
 							//has it where the row is at index 0 and col at index 1
-								System.out.println("king found");
+								//System.out.println("king found");
 								return new int[]{row,col};
 							}
 						} 
@@ -208,13 +208,13 @@ public class Board {
 			}
 			//if they can't find the king
 			//just put a print statement here for testing purposes
-			System.out.println("king not found");
+			//System.out.println("king not found");
 			return null;
 	}
 	
 	//isInCheck method(Player player)
 	public boolean isInCheck(Player player){
-		System.out.println("findKingSquare called by isInCheck");
+		//System.out.println("findKingSquare called by isInCheck");
 		int[] kingsPosition =(findKingSquare(player));
 		
 		if (kingsPosition != null){
@@ -230,7 +230,7 @@ public class Board {
 						//to see if the kings square that is currently on is underattack
 						//I put "this" as the last parameter because it was missing
 							if(boardData[row][col].checkMoveValidity(row,col,kingRow,kingCol, this)){
-								System.out.println("isInCheck returns true");
+								//System.out.println("isInCheck returns true");
 								return true;
 							}
 						}
@@ -238,7 +238,7 @@ public class Board {
 			}
 		
 		}
-		System.out.println("isInCheck returns false");
+		//System.out.println("isInCheck returns false");
 		return false;
 	}
 	
@@ -295,7 +295,7 @@ public class Board {
 									tempBoard.movePiece(col,row,newCol,newRow);
 								
 								//if the king is not in check
-								System.out.println("tempBoard.isInCheck called by getLegalMovement");
+								//System.out.println("tempBoard.isInCheck called by getLegalMovement");
 									if(tempBoard.isInCheck(player) == false){
 										return true;
 									}
@@ -312,12 +312,12 @@ public class Board {
 	
 
 	public boolean checkForCheckmate(Player player){
-		System.out.println("isInCheck called by CheckForCheckmate");
+		//System.out.println("isInCheck called by CheckForCheckmate");
 		if(!isInCheck(player)){
 			//no check
 			return false;
 		}
-		System.out.println("getLegalMovement called by checkForCheckmate");
+		//System.out.println("getLegalMovement called by checkForCheckmate");
 		if(getLegalMovement(player) == false){
 			return true;
 		}

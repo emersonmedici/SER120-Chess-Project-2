@@ -242,7 +242,68 @@ public class ChessReplayer {
 			//turn++
 			//wait one second
 		
+		//attempt here~~~
+
+        File folder = new File(name);
+        
+        // Safety check: Ensure the path is a valid directory
+        if (folder.exists() && folder.isDirectory()) {
+            File[] files = folder.listFiles();
+            if (files != null) {
+                for (File file : files) {
+                    if (file.isFile()) {
+                        System.out.println("File: " + file.getName());
+                        Board board = readFile(file);
+                        printer.printBoard(board);
+                        turn++;
+                        try {
+							Thread.sleep(1000);
+						} catch (InterruptedException e) {
+							Thread.currentThread().interrupt();
+						}
+                    }
+                }
+            }
+        } else {
+            System.out.println("Invalid directory path.");
+        }
+		
+		//end attempt~~~
+		
 		return turn;
+	}
+	
+	
+	public Board getReloadedBoard(String name){
+		Board board = new Board();
+		//folder = getfolder(name)
+		//for each file in folder
+			//Board board = readFile(file)
+			//printer.printBoard(board)
+			//turn++
+			//wait one second
+		
+		//attempt here~~~
+
+        File folder = new File(name);
+        
+        // Safety check: Ensure the path is a valid directory
+        if (folder.exists() && folder.isDirectory()) {
+            File[] files = folder.listFiles();
+            if (files != null) {
+                for (File file : files) {
+                    if (file.isFile()) {
+                        board = readFile(file);
+                    }
+                }
+            }
+        } else {
+            System.out.println("Invalid directory path.");
+        }
+		
+		//end attempt~~~
+		
+		return board;
 	}
 	
 }

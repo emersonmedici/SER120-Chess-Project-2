@@ -41,8 +41,10 @@ public class ChessPlayer {
 	
 	//runs the game, is a loop that plays rounds over and over as long as the game is still going (no one has won)
 	//pass in a scanner from the game manager to take input later
-	public void playChess(Scanner myScanner, boolean isNewGame, int turn){
+	public void playChess(Scanner myScanner, boolean isNewGame, int reloadedTurn, Board passedBoard, String passedName){
 		System.out.println("Starting a chess game...");
+		System.out.println("INPUT 'exit' AT ANY TIME TO SAVE AND QUIT");
+		stillPlaying = true;
 		//System.out.println(board.toString());
 		
 		if(isNewGame){
@@ -56,20 +58,27 @@ public class ChessPlayer {
 			}
 			System.out.println("Closing chess game...");
 		} else {
-			/*
+			path = Path.of(passedName);
+			board = passedBoard;
+			turn=reloadedTurn;
 			while(stillPlaying){
-			if (turn%2 != 0){
+			if (reloadedTurn%2 != 0){
 				takeTurn(player1, myScanner);
-				System.out.println("checkForCheckmate(player2) called by playRound");
+				reloadedTurn++;
+				//System.out.println("checkForCheckmate(player2) called by playRound");
 				if (board.checkForCheckmate(player2)){
 					stillPlaying = false;
 					printer.printBoard(board);
+					if (player2.getTeam()==0){
+						System.out.println("Black loses!");
+					} else {
+						System.out.println("Whites loses!");
+					}
 				}
-				turn++;
 			}
 				playRound(myScanner);
 			}
-			System.out.println("Closing chess game...");*/
+			System.out.println("Closing chess game...");
 		}
 	}
 	
@@ -79,17 +88,29 @@ public class ChessPlayer {
 	public void playRound(Scanner myScanner){
 		printer.printBoard(board);
 		takeTurn(player2, myScanner);
-		System.out.println("checkForCheckmate(player1) called by playRound");
+		//System.out.println("checkForCheckmate(player1) called by playRound");
 		if (board.checkForCheckmate(player1)){
 			printer.printBoard(board);
 			stillPlaying = false;
+			if (player1.getTeam()==0){
+				System.out.println("Black loses!");
+			} else {
+				System.out.println("Whites loses!");
+			}
 		} else {
-			printer.printBoard(board);
-			takeTurn(player1, myScanner);
-			System.out.println("checkForCheckmate(player2) called by playRound");
-			if (board.checkForCheckmate(player2)){
-				stillPlaying = false;
+			if(stillPlaying){
 				printer.printBoard(board);
+				takeTurn(player1, myScanner);
+				//System.out.println("checkForCheckmate(player2) called by playRound");
+				if (board.checkForCheckmate(player2)){
+					stillPlaying = false;
+					printer.printBoard(board);
+					if (player2.getTeam()==0){
+						System.out.println("Black loses!");
+					} else {
+						System.out.println("Whites loses!");
+					}
+				}
 			}
 		}
 	}
@@ -116,15 +137,28 @@ public class ChessPlayer {
 		boolean moveIsValid = false;
 		while (!moveIsValid){
 			
-			System.out.print("Which piece would you like to move?");
+			System.out.println("Which piece would you like to move?");
 			startCol = promptUserCol(myScanner);
-			startRow = promptUserRow(myScanner);
+			
+			//add exit~~
+			if(startCol == -1){
+				stillPlaying = false;
+				moveIsValid = true;
+			} else {
+				startRow = promptUserRow(myScanner);
+				if(startRow == -1){
+					stillPlaying = false;
+					moveIsValid = true;
+				}
+			}
+			
+			if(stillPlaying){
 			
 			//checks that there is a piece in the chosen tile
 			if (boardData[startCol][startRow] != null){
 				//checks that the selected piece belongs to the player whose turn it currently is
 				if (boardData[startCol][startRow].getTeam() == player.getTeam()){
-					System.out.print("Where would you like to move it?");
+					System.out.println("Where would you like to move it?");
 					endCol = promptUserCol(myScanner);
 					endRow = promptUserRow(myScanner);
 				
@@ -141,33 +175,35 @@ public class ChessPlayer {
 								//if this piece cannot make that move, the loop must repeat
 								//this code is tehcnically unecessary, but it verifies that the loop must repeat
 								moveIsValid = false;
-								System.out.print("That was not a valid move. (there is a piece in the way)");
+								System.out.println("That was not a valid move. (there is a piece in the way)");
 							}
 						} else {
 							//if this piece cannot make that move, the loop must repeat
 							//this code is tehcnically unecessary, but it verifies that the loop must repeat
 							moveIsValid = false;
-							System.out.print("That was not a valid move. (this piece cannot move that way)");
+							System.out.println("That was not a valid move. (this piece cannot move that way)");
 						}
 						
 					} else {
 						moveIsValid = false;
-						System.out.print("That was not a valid move. (you cannot stay put)");
+						System.out.println("That was not a valid move. (you cannot stay put)");
 					}
 					
 				} else {
 					//if this piece doesn't belong to the player, the loop must repeat
 					//this code is tehcnically unecessary, but it verifies that the loop must repeat
 					moveIsValid = false;
-					System.out.print("That was not a valid move.(this is not your piece)");
+					System.out.println("That was not a valid move.(this is not your piece)");
 				}
 				
 			} else {
 				//if there is no piece there to begin with, the loop must repeat
 				//this code is tehcnically unecessary, but it verifies that the loop must repeat
 				moveIsValid = false;
-				System.out.print("That was not a valid move.(there is no piece there)");
+				System.out.println("That was not a valid move.(there is no piece there)");
 			}
+			
+		}
 			
 		}
 		//exit while loop, means a valid move has been described\
@@ -175,6 +211,8 @@ public class ChessPlayer {
 		//int[][] pathArr = new int[board.getBoardNumCols()][board.getBoardNumRows()];
 		//pathArr = boardData[startCol][startRow].drawPath(startCol,startRow,endCol,endRow,board);
 		//System.out.println(Arrays.deepToString(pathArr).replace("], ", "]\n nextcol: "));
+		
+		if (stillPlaying){
 		
 		board.movePiece(startCol,startRow,endCol,endRow);
 		
@@ -187,6 +225,8 @@ public class ChessPlayer {
 		turn++;
 		//creating a new file that stores the current board state as a string so it can be replayed later perhaps
 		myChessReplayer.newBoardFile(turn, board, path);
+		}
+		
 	}
 	
 	//these two methods (promptUserCol and promptUserRow) should be combined into one at some point, they are similar enough that it is doable with w=some parameters and/or conditional statements
@@ -203,6 +243,15 @@ public class ChessPlayer {
 		while (!isRealCoord){
 			System.out.println("Enter a column: ");
 			userInput = myScanner.nextLine();
+			
+			//adding exit~~
+			
+			if(userInput.equals("exit")){
+				return -1;
+			}
+			
+			//end exit~~
+			
 			chosenCol = convertCol(userInput); 
 			if (chosenCol == -1){
 			//if it was not a valid entry, convertCol should return null
@@ -226,11 +275,15 @@ public class ChessPlayer {
 		// a boolean to make a loop
 		boolean isRealCoord = false;
 		
-		
 		//loops until a real coordinate that exists on the board is given
 		while (!isRealCoord){
 			System.out.println("Enter a row: ");
 			userInput = myScanner.nextLine();
+			
+			if(userInput.equals("exit")){
+				return -1;
+			}
+			
 			chosenRow = convertRow(userInput); 
 			if (chosenRow == -1){
 			//if it was not a valid entry, convertCol should return null

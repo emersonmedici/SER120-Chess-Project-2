@@ -37,12 +37,15 @@ public class GameManager {
 			if (userInput.equals("r")){
 				isNewGame = false;
 				//reload previous game using the chess replayer
-				/*String name = myChessReplayer.requestFolderName(myScanner);
+				String name = myChessReplayer.requestFolderName(myScanner);
 				int turn = myChessReplayer.playback(name);
-				myChessPlayer.playChess(myScanner,isNewGame, turn);*/
+				Board reloadedBoard = myChessReplayer.getReloadedBoard(name);
+				myChessPlayer.playChess(myScanner,isNewGame, turn, reloadedBoard, name);
 			} else if (userInput.equals("n")){
 				isNewGame = true;
-				myChessPlayer.playChess(myScanner,isNewGame, 0);
+				Board dummyBoard = new Board();
+				String dummyName = "";
+				myChessPlayer.playChess(myScanner,isNewGame, 0, dummyBoard, dummyName);
 			} else {
 				running = false;
 			}

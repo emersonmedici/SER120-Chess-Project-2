@@ -54,6 +54,8 @@ public class VisualOutput {
 			}
 		}
 		
+		System.out.print("\n");
+		
 	}
 	
 	//helper method that determines what color space we are in, then prints filler
