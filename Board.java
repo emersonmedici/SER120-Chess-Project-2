@@ -189,18 +189,18 @@ public class Board {
 		//System.out.println("player team " + player.getTeam());
 			for(int row = 0; row < this.getBoardNumRows();row++){
 				for(int col = 0; col < this.getBoardNumCols();col++){
-					if (boardData[row][col] != null){
+					if (boardData[col][row] != null){
 						//System.out.println("checked spot: not null");
 						//Piece piece = boardData[row][col];
 						//System.out.println("piece type: " + boardData[row][col].getType() + " piece team: " + boardData[row][col].getTeam() + " player team: " + player.getTeam());
 						//cannot reference an abstract object, abstract object arent really supposed to exist, so i removed all references to it and continued to reference the piece in question directly from the board's data array
-						if(boardData[row][col].getType().equals("king")){
+						if(boardData[col][row].getType().equals("king")){
 							//System.out.println("is a king");
 							//System.out.println("king team " + boardData[row][col].getTeam());
-							if(boardData[row][col].getTeam() == player.getTeam()){
+							if(boardData[col][row].getTeam() == player.getTeam()){
 							//has it where the row is at index 0 and col at index 1
 								//System.out.println("king found");
-								return new int[]{row,col};
+								return new int[]{col,row};
 							}
 						} 
 					}
@@ -224,12 +224,12 @@ public class Board {
 			int kingCol = kingsPosition[1];
 			for(int row = 0; row < this.getBoardNumRows(); row++){
 					for(int col = 0; col < this.getBoardNumCols();col++){
-						Piece piece = boardData[row][col];
+						Piece piece = boardData[col][row];
 						//cannot reference an abstract object, abstract object arent really supposed to exist, so i removed all references to it and continued to reference the piece in question directly from the board's data array
-						if(boardData[row][col] != null && boardData[row][col].getTeam() != Team){
+						if(boardData[col][row] != null && boardData[col][row].getTeam() != Team){
 						//to see if the kings square that is currently on is underattack
 						//I put "this" as the last parameter because it was missing
-							if(boardData[row][col].checkMoveValidity(row,col,kingRow,kingCol, this)){
+							if(boardData[col][row].checkMoveValidity(row,col,kingRow,kingCol, this)){
 								//System.out.println("isInCheck returns true");
 								return true;
 							}
@@ -249,7 +249,7 @@ public class Board {
 		Piece[][] copy = new Piece[8][8];
 		for(int row = 0; row < this.getBoardNumRows(); row++){
 			for(int col = 0; col < this.getBoardNumCols(); col++){
-				copy[row][col] = board[row][col];
+				copy[col][row] = board[col][row];
 			}
 		}
 		return copy;
@@ -261,7 +261,7 @@ public class Board {
 		Board copy = new Board(tempPlayer1,tempPlayer2);
 		for(int row = 0; row < this.getBoardNumRows(); row++){
 			for(int col = 0; col < this.getBoardNumCols(); col++){
-				copy.boardData[row][col] = this.boardData[row][col];
+				copy.boardData[col][row] = this.boardData[col][row];
 			}
 		}
 		return copy;
@@ -273,7 +273,7 @@ public class Board {
 		for(int row = 0; row < this.getBoardNumRows(); row++){
 			for(int col = 0; col < this.getBoardNumCols();col++){
 				Piece piece = boardData[row][col];
-				if(boardData[row][col] != null && boardData[row][col].getTeam() == player.getTeam()){
+				if(boardData[col][row] != null && boardData[col][row].getTeam() == player.getTeam()){
 					//for each square on the the board
 					for(int newRow = 0;newRow < this.getBoardNumRows();newRow++){
 						for(int newCol = 0; newCol < this.getBoardNumCols(); newCol++){
@@ -284,8 +284,8 @@ public class Board {
 							//Player tempPlayer2 = new Player(1);
 							Board tempBoard = copyBoard2();					
 						//cehcks if the peice movement is valid
-							if (tempBoard.boardData[row][col] != null){
-								if(tempBoard.boardData[row][col].checkMoveValidity(row,col,newRow,newCol,tempBoard)){
+							if (tempBoard.boardData[col][row] != null){
+								if(tempBoard.boardData[col][row].checkMoveValidity(row,col,newRow,newCol,tempBoard)){
 							//-Simulate Move to see if the move they make is legal//
 							/* og code with the array
 								tempBoard[newRow][newCol] = tempBoard[row][col];
