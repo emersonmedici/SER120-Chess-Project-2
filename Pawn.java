@@ -8,6 +8,7 @@ class Pawn extends Piece {
 	
 	
 	//variables (add if needed)
+	boolean hasMoved = false;
 	
 	//constructors
 	public Pawn(Player initPlayer){
@@ -40,12 +41,19 @@ class Pawn extends Piece {
 		Piece [][] boardData = new Piece[board.getBoardNumCols()][board.getBoardNumRows()];
 		boardData = board.getBoardData();
 		
+		int max = 0;
+		if (hasMoved){
+			max = 1;
+		} else {
+			max = 2;
+		}
+		
 		//for white
 		if (this.team == 1){
 			if (endRow > startRow){ // if the piece is trying to move backwards (not allowed)
 				return false;
 			} else { //piece is not trying to move backwards
-				if (endRow < startRow - 1) { // if the piece is trying to move too far forward
+				if (endRow < startRow - max) { // if the piece is trying to move too far forward
 					return false;
 				} else { //the piece is moving exactly one tile forward
 					if (endCol != startCol){ //if the piece is trying to move horizontally (only allowed in diagonal capture)
@@ -56,6 +64,7 @@ class Pawn extends Piece {
 								return false; 
 							} else { //if there IS a piece in the landing spot
 								if (boardData[endCol][endRow].getTeam() != this.team){ //if that piece is on the opposite team
+									this.hasMoved = true;
 									return true; //make a valid capture move
 								} else { //if that piece is NOT on the opposite team, it's a friendly piece
 									return false;
@@ -64,6 +73,7 @@ class Pawn extends Piece {
 						}
 					} else { //if the piece is not trying to move horizontally
 						if (boardData[endCol][endRow] == null){ //if there is no piece in the landing spot at all
+							this.hasMoved = true;
 							return true; //the piece is making a valid 1-tile-forward move
 						} else { //if the space is occupied
 							return false;
@@ -76,7 +86,7 @@ class Pawn extends Piece {
 			if (endRow < startRow){ // if the piece is trying to move backwards (not allowed)
 				return false;
 			} else { //piece is not trying to move backwards
-				if (endRow > startRow + 1) { // if the piece is trying to move too far forward
+				if (endRow > startRow + max) { // if the piece is trying to move too far forward
 					return false;
 				} else { //the piece is moving exactly one tile forward
 					if (endCol != startCol){ //if the piece is trying to move horizontally (only allowed in diagonal capture)
@@ -87,6 +97,7 @@ class Pawn extends Piece {
 								return false; 
 							} else { //if there IS a piece in the landing spot
 								if (boardData[endCol][endRow].getTeam() != this.team){ //if that piece is on the opposite team
+									this.hasMoved = true;
 									return true; //make a valid capture move
 								} else { //if that piece is NOT on the opposite team, it's a friendly piece
 									return false;
@@ -95,6 +106,7 @@ class Pawn extends Piece {
 						}
 					} else { //if the piece is not trying to move horizontally
 						if (boardData[endCol][endRow] == null){ //if there is no piece in the landing spot at all
+							this.hasMoved = true;
 							return true; //the piece is making a valid 1-tile-forward move
 						} else { //if the space is occupied
 							return false;
